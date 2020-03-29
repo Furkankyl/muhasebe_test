@@ -52,6 +52,12 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   GlobalKey stickyKey = GlobalKey();
 
   @override

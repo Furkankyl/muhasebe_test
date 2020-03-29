@@ -5,9 +5,11 @@ class CustomButton extends StatefulWidget {
   final Widget child;
   final Function onPressed;
   final bool createAnim;
+  final Color color;
+  final Color textColor;
 
   CustomButton(
-      {@required this.child, @required this.onPressed, this.createAnim = true});
+      {@required this.child, @required this.onPressed, this.createAnim = true,this.color = Colors.white,this.textColor = Colors.deepPurple});
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -54,8 +56,9 @@ class _CustomButtonState extends State<CustomButton>
           width: double.maxFinite,
           margin: EdgeInsets.symmetric(horizontal: 16),
           child: RaisedButton(
-            color: Colors.white,
-            textColor: Color.fromRGBO(145, 104, 222, 1),
+            color: widget.color,
+
+            textColor: widget.textColor,
             shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(255.0),
             ),

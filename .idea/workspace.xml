@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4781dc4c-095b-422d-8d20-0b3f8f66a8a9" name="Default Changelist" comment="" />
+    <list default="true" id="4781dc4c-095b-422d-8d20-0b3f8f66a8a9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/icons/add.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/calendar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/contract.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/contract1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/not_found.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/screens/FilePage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/widgets/CustomDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/AddFilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/AddFilePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/SignInPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/widgets/CustomButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/widgets/CustomButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/widgets/FileWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/widgets/FileWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,23 +38,25 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZkqGis788vWZBnieSembr22ScR" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/icons" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\icons" />
+      <recent name="C:\Users\Furkan\Documents\GitHub\Ebook\muhasebe_test\lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\icons" />
       <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\fonts" />
       <recent name="C:\Users\Furkan\Documents\GitHub\Ebook\muhasebe_test\assets" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Furkan\Documents\GitHub\Ebook\muhasebe_test\lib" />
     </key>
   </component>
   <component name="RunDashboard">

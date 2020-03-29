@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:muhasebetest/app/screens/AddFilePage.dart';
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     currentWidget = FilesPage();
+
     super.initState();
   }
 
@@ -41,10 +44,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.deepPurple,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BubbleBottomBar(
+      bottomNavigationBar:new BubbleBottomBar(
+        hasInk: true,
         hasNotch: true,
-        fabLocation: BubbleBottomBarFabLocation.end,
-        opacity: 0.8,
+        fabLocation:BubbleBottomBarFabLocation.end,
+        inkColor: Color.fromRGBO(145, 104, 222, 1),
+        opacity: 1,
         currentIndex: _selectedIndex,
         onTap: (index) {
           if (_selectedIndex != index) {
@@ -65,11 +70,9 @@ class _HomePageState extends State<HomePage> {
           }
         },
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        //border radius doesn't work when the notch is enabled.
-        elevation: 8,
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
-              backgroundColor: Color.fromRGBO(145, 104, 222, 1),
+              backgroundColor: Colors.deepPurple,
               icon: Icon(
                 Icons.insert_drive_file,
                 color: Colors.deepPurple,
@@ -84,10 +87,10 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white),
               )),
           BubbleBottomBarItem(
-              backgroundColor: Color.fromRGBO(145, 104, 222, 1),
+              backgroundColor: Colors.deepPurple,
               icon: Icon(
                 Icons.person,
-                color: Color.fromRGBO(145, 104, 222, 1),
+                color: Colors.deepPurple,
               ),
               activeIcon: Icon(
                 Icons.person,
@@ -100,8 +103,9 @@ class _HomePageState extends State<HomePage> {
               )),
         ],
       ),
-      body: PageView(
+      body: new PageView(
         controller: _controller,
+
         physics: new NeverScrollableScrollPhysics(),
         children: <Widget>[
           FilesPage(),
@@ -117,42 +121,33 @@ class FilesPage extends StatefulWidget {
   _FilesPageState createState() => _FilesPageState();
 }
 
-class _FilesPageState extends State<FilesPage> {
+class _FilesPageState extends State<FilesPage> with TickerProviderStateMixin {
   DateTime date = DateTime.now();
   int selectedIndex = 0;
+
+  TabController tabController;
 
   @override
   void initState() {
     initializeDateFormatting('tr', null);
+    tabController = TabController(vsync: this, length: list.length );
+    tabController.addListener(() {
+      setState(() {
+        selectedIndex = tabController.index;
+      });
+    });
     super.initState();
   }
 
-  Widget dateFilterWidget() {
-    return Container(
-      height: 100,
-      child: SafeArea(
-        child: Scrollbar(
-          child: Padding(
-            padding: EdgeInsets.all(4),
-            child: ListView.builder(
-              reverse: true,
-              shrinkWrap: true,
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                String dateString = "";
-
-                dateString = DateFormat("MMMM", "tr_TR").format(
-                    new DateTime(date.year, date.month - index, date.day));
-
-                return montWidget(dateString.substring(0, 3), index);
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  List<DateTime> list = [
+    DateTime(2020, 3),
+    DateTime(2020, 2),
+    DateTime(2020, 1),
+    DateTime(2019, 12),
+    DateTime(2019, 11),
+    DateTime(2019, 10),
+    DateTime(2019, 9),
+  ];
 
   Widget montWidget(String title, index) {
     Color color = index == selectedIndex ? Colors.white : Colors.blue;
@@ -195,23 +190,11 @@ class _FilesPageState extends State<FilesPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (Rect bounds) {
-                    return RadialGradient(
-                      center: Alignment.topLeft,
-                      radius: 1,
-                      colors: <Color>[
-                        Colors.greenAccent[200],
-                        Colors.blueAccent[200]
-                      ],
-                      tileMode: TileMode.repeated,
-                    ).createShader(bounds);
-                  },
-                  child: Icon(
-                    Icons.insert_drive_file,
-                    size: 120,
-                  ),
+                SvgPicture.asset(
+                    "assets/icons/not_found.svg",
+                  semanticsLabel: "asdasd",
+                  height: 150,
+                  width: 150,
                 ),
                 SizedBox(
                   height: 32,
@@ -241,37 +224,120 @@ class _FilesPageState extends State<FilesPage> {
         ),
       );
 
+  Widget tabBar() => ClipRRect(
+        child: Container(
+          margin: const EdgeInsets.all(16.0),
+          foregroundDecoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(255)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(255),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0.0, 5), //(
+                spreadRadius: 2.5,
+                blurRadius: 5,
+              ),
+            ],
+          ),
+          child: TabBar(
+              controller: tabController,
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              labelPadding: EdgeInsets.symmetric(horizontal: 5),
+              unselectedLabelColor: Colors.deepPurple,
+              labelColor: Colors.white,
+              isScrollable: true,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.deepPurple),
+              tabs: list.map((date) {
+                String dateString = DateFormat("MMMM", "tr_TR").format(date);
+                return Tab(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(dateString),
+                    ),
+                  ),
+                );
+              }).toList()),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            dateFilterWidget(),
-            Expanded(
-              child: selectedIndex == 0
-                  ? emptyWidget()
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GridView.count(
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        crossAxisCount: 2,
-                        children: <Widget>[
-                          FileWidget(),
-                          FileWidget(),
-                          FileWidget(),
-                          FileWidget(),
-                          FileWidget(),
-                        ],
-                      ),
-                    ),
-            )
-          ],
+    return DefaultTabController(
+      initialIndex: selectedIndex,
+      length: list.length,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              tabBar(),
+              Expanded(
+                  child: TabBarView(
+                controller: tabController,
+                children: <Widget>[
+                  emptyWidget(),
+                  tabbBarView(),
+                  tabbBarView(),
+                  tabbBarView(),
+                  tabbBarView(),
+                  tabbBarView(),
+                  tabbBarView(),
+                ],
+              ))
+            ],
+          ),
         ),
       ),
     );
   }
+
+  Widget tabbBarView() =>  Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.count(
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            crossAxisCount: 2,
+            children: <Widget>[
+              FileWidget(),
+              FileWidget(),
+              FileWidget(),
+              FileWidget(),
+              FileWidget(),
+              FileWidget(),
+              FileWidget(),
+              Container(
+                margin: EdgeInsets.all(16),
+
+                decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(16)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                SvgPicture.asset(
+                "assets/icons/add.svg",
+                  semanticsLabel: "asdasd",
+                  height: 80,
+                  width: 80,
+                ),
+                    Text(
+                      'Dosya ekle'
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
 }
