@@ -1,9 +1,17 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
-import 'package:muhasebetest/app/screens/FilePage.dart';
+import 'package:muhasebetest/app/model/FileModel.dart';
+import 'package:muhasebetest/app/screens/FileDetailPage.dart';
 
 class FileWidget extends StatefulWidget {
+
+  final FileModel fileModel;
+  final Function onDelete;
+  final Function onUpdate;
+
+  FileWidget({@required this.fileModel,@required this.onDelete,@required this.onUpdate});
+
   @override
   _FileWidgetState createState() => _FileWidgetState();
 }
@@ -57,13 +65,10 @@ class _FileWidgetState extends State<FileWidget>
           closedBuilder: (context, _) {
             return AnimatedBuilder(
               animation: _animationController,
-              builder: (context, widget) {
-                return Stack(
+              builder: (context, _) {
+                return Column(
                   children: <Widget>[
-                    Positioned(
-                      right: 0,
-                      left: 0,
-                      top: 8,
+                    Expanded(
                       child: ShaderMask(
                         blendMode: BlendMode.srcIn,
                         shaderCallback: (Rect bounds) {
@@ -83,15 +88,15 @@ class _FileWidgetState extends State<FileWidget>
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Test1',
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.fileModel.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+
+                        style:
+                            TextStyle(color: Theme.of(context).accentColor),
                       ),
                     ),
                   ],
@@ -100,7 +105,7 @@ class _FileWidgetState extends State<FileWidget>
             );
           },
           openBuilder: (context, _) {
-            return FilePage();
+            return FileDetailPage(fileModel:widget.fileModel,onDelete: widget.onDelete,onUpdate: widget.onUpdate,);
           },
         ),
       ),

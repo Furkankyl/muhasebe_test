@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:muhasebetest/app/helper/CustomSharedPref.dart';
+import 'package:muhasebetest/app/screens/SplashScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -9,7 +12,6 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Text('Hesabım'),
@@ -36,7 +38,14 @@ class _AccountPageState extends State<AccountPage> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               textColor: Colors.red,
               child: Text("Çıkış yap"),
-              onPressed: () {},
+              onPressed: () async {
+                SharedPref sp =
+                    SharedPref(await SharedPreferences.getInstance());
+                sp.signOut();
+
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => SplashScreen()));
+              },
             ),
           )
         ],

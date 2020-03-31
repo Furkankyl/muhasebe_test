@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" group="android" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="android/app" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/file_picker-1.5.0+2/android/file_picker.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/file_picker-1.5.0+2/android/file_picker.iml" group="android/file_picker" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_core-0.4.4+3/android/firebase_core.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_core-0.4.4+3/android/firebase_core.iml" group="android/firebase_core" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/android/firebase_core_web.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/android/firebase_core_web.iml" group="android/firebase_core_web" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_storage-3.1.1/android/firebase_storage.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/firebase_storage-3.1.1/android/firebase_storage.iml" group="android/firebase_storage" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.6/android/flutter_plugin_android_lifecycle.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.6/android/flutter_plugin_android_lifecycle.iml" group="android/flutter_plugin_android_lifecycle" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/keyboard_visibility-0.5.6/android/keyboard_visibility.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/keyboard_visibility-0.5.6/android/keyboard_visibility.iml" group="android/keyboard_visibility" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/open_file-3.0.1/android/open_file.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/open_file-3.0.1/android/open_file.iml" group="android/open_file" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+3/android/shared_preferences.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+3/android/shared_preferences.iml" group="android/shared_preferences" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+6/android/shared_preferences_macos.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+6/android/shared_preferences_macos.iml" group="android/shared_preferences_macos" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+4/android/shared_preferences_web.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+4/android/shared_preferences_web.iml" group="android/shared_preferences_web" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher-5.4.2/android/url_launcher.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher-5.4.2/android/url_launcher.iml" group="android/url_launcher" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+4/android/url_launcher_macos.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+4/android/url_launcher_macos.iml" group="android/url_launcher_macos" />
+      <module fileurl="file://$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+1/android/url_launcher_web.iml" filepath="$USER_HOME$/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+1/android/url_launcher_web.iml" group="android/url_launcher_web" />
+    </modules>
+  </component>
+</project>

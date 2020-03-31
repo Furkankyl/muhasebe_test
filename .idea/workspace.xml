@@ -2,23 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4781dc4c-095b-422d-8d20-0b3f8f66a8a9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/icons/add.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/calendar.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/contract.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/contract1.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/not_found.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/screens/FilePage.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/widgets/CustomDialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/cancel.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/check.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/heart.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/heart_angel.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/loading.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/menu.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/qr.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/thrash.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/anim/user.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/icons/file.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/helper/Constant.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/helper/CustomSharedPref.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/helper/CustomToast.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/model/FileModel.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/model/User.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/screens/EditFilePage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/screens/FilesPage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/services/DBService.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/widgets/EmptyFileWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/locator.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/AccountPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/AccountPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/screens/AddFilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/AddFilePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/FilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/FileDetailPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/screens/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/HomePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/screens/SignInPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/SignInPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/widgets/CustomButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/widgets/CustomButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/SignUpPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/SignUpPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/screens/SplashScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/screens/SplashScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/widgets/CustomDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/widgets/CustomDialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/widgets/FileWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/widgets/FileWidget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
@@ -45,15 +64,19 @@
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/icons" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/anim" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\anim" />
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets" />
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\android\app" />
       <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\icons" />
-      <recent name="C:\Users\Furkan\Documents\GitHub\Ebook\muhasebe_test\lib" />
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\lib\app\helper" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\lib" />
       <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\icons" />
       <recent name="C:\Users\Furkan\Documents\GitHub\muhasebe_test\assets\fonts" />
       <recent name="C:\Users\Furkan\Documents\GitHub\Ebook\muhasebe_test\assets" />

@@ -5,8 +5,8 @@ class CustomDialog extends StatefulWidget {
   final String content;
   final String buttonAccept;
   final String buttonCancel;
-  final Future<void> buttonAcceptEvent;
-  final Future<void> buttonCancelEvent;
+  final Function buttonAcceptEvent;
+  final Function buttonCancelEvent;
 
   CustomDialog(
       {@required this.title,
@@ -93,7 +93,7 @@ class _CustomDialogState extends State<CustomDialog>
                           child: InkWell(
                             onTap: () async {
                               if (widget.buttonCancelEvent != null)
-                                await widget.buttonCancelEvent;
+                                await widget.buttonCancelEvent();
 
                               _controller.reverse().orCancel;
                               _controller.addStatusListener((status) {
@@ -126,7 +126,7 @@ class _CustomDialogState extends State<CustomDialog>
                                 bottomRight: Radius.circular(16)),
                             onTap: () async {
                               if (widget.buttonAcceptEvent != null)
-                                await widget.buttonAcceptEvent;
+                                await widget.buttonAcceptEvent();
 
                               _controller.reverse().orCancel;
                               _controller.addStatusListener((status) {

@@ -3,34 +3,48 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:muhasebetest/app/helper/CustomToast.dart';
+import 'package:muhasebetest/app/model/User.dart';
 import 'package:muhasebetest/app/screens/HomePage.dart';
+import 'package:muhasebetest/app/services/DBService.dart';
 import 'package:muhasebetest/app/widgets/AppIcon.dart';
 import 'package:muhasebetest/app/widgets/CustomButton.dart';
+import 'package:muhasebetest/locator.dart';
 
 class SignInPage extends StatefulWidget {
+  String idNumber;
+
+  SignInPage({this.idNumber = ""});
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
+  var _formKey = GlobalKey<FormState>();
+
   AnimationController controller;
   SequenceAnimation sequenceAnimation;
   bool keyboardIsVisible = false;
-  TextEditingController emailController = TextEditingController();
+  TextEditingController idController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   FocusNode passwordNode = FocusNode();
 
+  var obscurePassword = false;
+
   @override
   void initState() {
+    idController.text = widget.idNumber;
     controller = AnimationController(vsync: this);
     sequenceAnimation = SequenceAnimationBuilder()
         .addAnimatable(
             animatable: Tween<double>(begin: 0, end: 1),
             from: Duration(milliseconds: 300),
             to: Duration(milliseconds: 800),
-            tag: "opacityEmail")
+            tag: "opacityId")
         .addAnimatable(
             animatable: Tween<double>(begin: 0, end: 1),
             from: Duration(milliseconds: 800),
@@ -52,6 +66,30 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
     super.initState();
   }
 
+  bool isBusy = false;
+  bool isValid = false;
+
+  signIn() async {
+    DBService auth = locator<DBService>();
+    setState(() {
+      isBusy = true;
+    });
+    User result = await auth.signInUserIdAndPassword(
+        idController.text, passwordController.text);
+
+    if (result != null) {
+      CustomToast.showCard(
+        title: "Giriş yapıldı",
+        body: "Dosyalarını getiriyorum",
+      );
+      Navigator.of(context)
+          .pushReplacement((MaterialPageRoute(builder: (_) => HomePage())));
+    } else
+      setState(() {
+        isBusy = false;
+      });
+  }
+
   @override
   void dispose() {
     controller?.dispose();
@@ -62,211 +100,237 @@ class _SignInPageState extends State<SignInPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return  AnimatedBuilder(
-        animation: controller,
-        builder: (context, widget) {
-          return Scaffold(
-            body: SafeArea(
-              child: Stack(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Column(
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, widget) {
+        return Scaffold(
+          body: SafeArea(
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        AppIcon(),
+                        Hero(
+                          tag: "app_name",
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Text(
+                              'Muhasebele',
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(
+                      flex: 1,
+                    ),
+                    Form(
+                      key: _formKey,
+                      onChanged: () {
+                        setState(() {
+                          isValid = _formKey.currentState.validate();
+                        });
+                      },
+                      child: Column(
                         children: <Widget>[
-                          AppIcon(),
-                          Hero(
-                            tag: "app_name",
-                            child: Material(
-                              type: MaterialType.transparency,
-                              child: Text(
-                                'Muhasebele',
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.normal),
+                          Opacity(
+                            opacity: sequenceAnimation['opacityId'].value,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: idController,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                maxLength: 11,
+                                maxLengthEnforced: true,
+                                onFieldSubmitted: (term) {
+                                  FocusScope.of(context)
+                                      .requestFocus(passwordNode);
+                                },
+                                autovalidate: true,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "boş bırakılamaz.";
+                                  } else if (value.length != 11) {
+                                    return "Kimlik numarası 11 haneli olmalıdır!";
+                                  } else
+                                    return null;
+                                },
+                                decoration: InputDecoration(
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                          color: Colors.red, width: 2)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                          color: Colors.red, width: 2)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  errorStyle: TextStyle(color: Colors.white),
+                                  counterStyle: TextStyle(color: Colors.white),
+                                  labelText: "Tc kimlik no",
+                                  hintText: "12345678901",
+                                  labelStyle: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Opacity(
+                            opacity: sequenceAnimation['opacityPassword'].value,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: passwordController,
+                                maxLength: 32,
+                                maxLengthEnforced: true,
+                                autovalidate: true,
+                                obscureText: obscurePassword,
+                                validator: (password) {
+                                  if (password.isEmpty)
+                                    return "boş bırakılamaz.";
+                                  else if (password.length < 8)
+                                    return "parola en az 8 karakter olmalı";
+                                  else
+                                    return null;
+                                },
+                                keyboardType: TextInputType.visiblePassword,
+                                textInputAction: TextInputAction.done,
+                                onFieldSubmitted: (term) {
+                                  if (_formKey.currentState.validate())
+                                    signIn();
+                                },
+                                decoration: InputDecoration(
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                        borderSide: BorderSide(
+                                            color: Colors.red, width: 2)),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                        borderSide: BorderSide(
+                                            color: Colors.red, width: 2)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 2)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 2)),
+                                    errorStyle: TextStyle(color: Colors.white),
+                                    counterStyle:
+                                        TextStyle(color: Colors.white),
+                                    labelText: "Parola",
+                                    hintText: "12345678",
+                                    labelStyle: TextStyle(color: Colors.white),
+                                    suffixIcon: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: IconButton(
+                                        icon: Icon(
+                                          obscurePassword
+                                              ? FontAwesomeIcons.solidEye
+                                              : FontAwesomeIcons.solidEyeSlash,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            obscurePassword = !obscurePassword;
+                                          });
+                                        },
+                                      ),
+                                    )),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Spacer(
-                        flex: 1,
-                      ),
-                      Opacity(
-                        opacity: sequenceAnimation['opacityEmail'].value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: emailController,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.emailAddress,
-                            onFieldSubmitted: (term) {
-                              FocusScope.of(context).requestFocus(passwordNode);
-                            },
-                            autovalidate: true,
-                            validator: (value) {
-                              Pattern pattern =
-                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                              RegExp regex = new RegExp(pattern);
-
-                              bool emailValid = regex.hasMatch(value);
-                              if (value.isEmpty) {
-                                return "boş bırakılamaz.";
-                              } else if (!emailValid) {
-                                return "geçersiz mail adresi!";
-                              } else
-                                return null;
-                            },
-                            decoration: InputDecoration(
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.red, width: 2)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.red, width: 2)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.white, width: 2)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.white, width: 2)),
-                              errorStyle: TextStyle(color: Colors.white),
-
-                              labelText: "Email",
-                              hintText: "example@gmail.com",
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Opacity(
-                        opacity: sequenceAnimation['opacityPassword'].value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: passwordController,
-                            maxLength: 32,
-                            maxLengthEnforced: true,
-                            autovalidate: true,
-                            validator: (password) {
-                              if (password.isEmpty)
-                                return "boş bırakılamaz.";
-                              else if (password.length < 8)
-                                return "parola en az 8 karakter olmalı";
-                              //TODO least one Uppercase and one lower case and one numeric
-                              else
-                                return null;
-                            },
-                            keyboardType: TextInputType.visiblePassword,
-                            textInputAction: TextInputAction.done,
-                            onFieldSubmitted: (term) {
-                              print('Send datas');
-                            },
-                            focusNode: passwordNode,
-                            decoration: InputDecoration(
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.red, width: 2)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.red, width: 2)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.white, width: 2)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide:
-                                  BorderSide(color: Colors.white, width: 2)),
-                              errorStyle: TextStyle(color: Colors.white),
-                              counterStyle: TextStyle(color: Colors.white),
-                              labelText: "Password",
-                              hintText: "example@gmail.com",
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(flex: 2,),
-                    ],
-                  ),
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 300),
-                    left: 0,
-                    right: 0,
-                    bottom: keyboardIsVisible
-                        ? -(stickyKey.currentContext.findRenderObject()
-                    as RenderBox)
-                        .size
-                        .height
-                        : 16,
-                    child: LayoutBuilder(
-                      builder: (context, builder) {
-                        return Column(
-                          key: stickyKey,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            CustomButton(
-                              child: Text('Sign In'),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => HomePage()));
-                              },
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 32.0),
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                maxLines: 3,
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                      text: 'Giriş yaptığında ',
-                                      style: TextStyle(color: Colors.white70)),
-                                  TextSpan(
-                                      text: 'kullanım koşullarını',
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () {
-                                          showPrivacyDialog(context);
-                                        },
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline)),
-                                  TextSpan(
-                                      text: ' ve ',
-                                      style: TextStyle(color: Colors.white70)),
-                                  TextSpan(
-                                      text: 'gizlilik politikasını',
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () {
-                                          showPrivacyDialog(context);
-                                        },
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline)),
-                                  TextSpan(
-                                      text: ' kabul etmiş sayılırsın.',
-                                      style: TextStyle(color: Colors.white70)),
-                                ]),
-                              ),
-                            )
-                          ],
-                        );
-                      },
                     ),
-                  )
-                ],
-              ),
+                    Spacer(
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: 300),
+                  left: 0,
+                  right: 0,
+                  bottom: keyboardIsVisible
+                      ? -(stickyKey.currentContext.findRenderObject()
+                              as RenderBox)
+                          .size
+                          .height
+                      : 16,
+                  child: LayoutBuilder(
+                    builder: (context, builder) {
+                      return Column(
+                        key: stickyKey,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          CustomButton(
+                            child: isBusy
+                                ? CircularProgressIndicator()
+                                : Text('Sign In'),
+                            onPressed: isValid ? signIn : null,
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 32.0),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              maxLines: 3,
+                              text: TextSpan(children: [
+                                TextSpan(
+                                    text: 'Giriş yaptığında ',
+                                    style: TextStyle(color: Colors.white70)),
+                                TextSpan(
+                                    text: 'kullanım koşullarını',
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () {
+                                        showPrivacyDialog(context);
+                                      },
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline)),
+                                TextSpan(
+                                    text: ' ve ',
+                                    style: TextStyle(color: Colors.white70)),
+                                TextSpan(
+                                    text: 'gizlilik politikasını',
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () {
+                                        showPrivacyDialog(context);
+                                      },
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline)),
+                                TextSpan(
+                                    text: ' kabul etmiş sayılırsın.',
+                                    style: TextStyle(color: Colors.white70)),
+                              ]),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
-          );
-        },
-      );
-
+          ),
+        );
+      },
+    );
   }
 
   void showPrivacyDialog(BuildContext context) {
@@ -290,7 +354,6 @@ class PrivacyDialog extends StatefulWidget {
 class _PrivacyDialogState extends State<PrivacyDialog> {
   double shadowRadius = 0;
   bool isLoading = false;
-
 
   @override
   void initState() {
@@ -328,7 +391,9 @@ class _PrivacyDialogState extends State<PrivacyDialog> {
           ),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               ListTile(
                 title: AutoSizeText(
                   'Privacy Policity',

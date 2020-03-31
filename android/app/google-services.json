@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "572273277522",
+    "firebase_url": "https://juricepte.firebaseio.com",
+    "project_id": "juricepte",
+    "storage_bucket": "juricepte.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572273277522:android:83aea321c8dd388e13fd8b",
+        "android_client_info": {
+          "package_name": "anka.com.muhasebetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyzp-qJ2yD7IMDhYxCTLeOXgvLLKhc8UY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572273277522:android:e670424511a56832",
+        "android_client_info": {
+          "package_name": "com.grup15example.juricepte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572273277522-dn6gkhafmfrjandeiqfb907dlvc2th4o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grup15example.juricepte",
+            "certificate_hash": "c69f522ae72d44956113241c529a5caf2fd02212"
+          }
+        },
+        {
+          "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyzp-qJ2yD7IMDhYxCTLeOXgvLLKhc8UY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572273277522:android:bc86a445a877bf03",
+        "android_client_info": {
+          "package_name": "com.juricepte.can.juricepte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572273277522-kujj5kkqnq0ekuo8mp952r8bvsqbia13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juricepte.can.juricepte",
+            "certificate_hash": "2b7b272db8c290ea426a01029ce08d25bfafafa0"
+          }
+        },
+        {
+          "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyzp-qJ2yD7IMDhYxCTLeOXgvLLKhc8UY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572273277522-p9273oe1hv2ql43to00mqmmgf1iof3r9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

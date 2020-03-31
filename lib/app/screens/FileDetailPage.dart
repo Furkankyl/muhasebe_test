@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:muhasebetest/app/model/FileModel.dart';
+import 'package:muhasebetest/app/screens/EditFilePage.dart';
+import 'package:muhasebetest/app/services/DBService.dart';
 import 'package:muhasebetest/app/widgets/CustomButton.dart';
 import 'package:muhasebetest/app/widgets/CustomDialog.dart';
+import 'package:muhasebetest/locator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class FilePage extends StatefulWidget {
+class FileDetailPage extends StatefulWidget {
+  FileModel fileModel;
+  final Function onDelete;
+  final Function onUpdate;
+
+  FileDetailPage({@required this.fileModel, @required this.onDelete,@required this.onUpdate});
+
   @override
-  _FilePageState createState() => _FilePageState();
+  _FileDetailPageState createState() => _FileDetailPageState(fileModel);
 }
 
-class _FilePageState extends State<FilePage> {
+class _FileDetailPageState extends State<FileDetailPage> {
+  FileModel _fileModel;
+
+  _FileDetailPageState(this._fileModel);
+
+  bool isEditingMode = false;
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -56,7 +75,7 @@ class _FilePageState extends State<FilePage> {
                             ),
                           ),
                           Text(
-                            'Test1',
+                            _fileModel.name,
                             style:
                                 TextStyle(color: Theme.of(context).accentColor),
                           ),
@@ -74,7 +93,9 @@ class _FilePageState extends State<FilePage> {
                           TextSpan(
                               text: "Oluşturulma tarihi:\t\t",
                               style: TextStyle(color: Colors.white70)),
-                          TextSpan(text: "29.03.2020 13:30"),
+                          TextSpan(
+                              text: DateFormat("yyyy-MM-dd HH:mm")
+                                  .format(_fileModel.date)),
                         ]),
                   ),
                   SizedBox(
@@ -87,7 +108,9 @@ class _FilePageState extends State<FilePage> {
                           TextSpan(
                               text: "Son değişiklik:\t\t",
                               style: TextStyle(color: Colors.white70)),
-                          TextSpan(text: "29.03.2020 13:30"),
+                          TextSpan(
+                              text: DateFormat("yyyy-MM-dd HH:mm")
+                                  .format(_fileModel.editingDate)),
                         ]),
                   ),
                   Spacer(),
@@ -103,14 +126,37 @@ class _FilePageState extends State<FilePage> {
                 children: <Widget>[
                   CustomButton(
                     child: Text('Aç'),
-                    onPressed: () {},
+                    onPressed: () async {
+                      /*
+                      const url =
+                          'https://firebasestorage.googleapis.com/v0/b/malware-74bed.appspot.com/o/Users%2F1%2FBelgeler%2FLogo?alt=media&token=f03ac197-5904-4908-bcd8-1eb62d58a9c0';
+*/
+                      if (await canLaunch(_fileModel.url)) {
+                        await launch(_fileModel.url);
+                      } else {
+                        throw 'Could not launch ${_fileModel.url}';
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomButton(
                     child: Text('Düzenle'),
-                    onPressed: () {},
+                    onPressed: () async {
+                      FileModel file = await Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  EditFilePage(fileModel: _fileModel)));
+
+                      if (file != null) {
+                        print(file);
+                        setState(() {
+                          _fileModel = file;
+                        });
+                        widget.onUpdate(file);
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 16,
@@ -144,7 +190,7 @@ class _FilePageState extends State<FilePage> {
                                 child: CustomDialog(
                                   buttonAccept: "Sil",
                                   title: "Dikkat",
-                                  buttonAcceptEvent: delete(),
+                                  buttonAcceptEvent: delete,
                                   content:
                                       'Bu dosyayı kalıcı olarak silmek istediğine emin misin?',
                                 ));
@@ -161,8 +207,13 @@ class _FilePageState extends State<FilePage> {
   }
 
   //TODO delete event add
-  Future<bool> delete() async{
-    await Future.delayed(Duration(seconds: 3));
-    print("silindi");
+  delete() async {
+    DBService db = locator<DBService>();
+
+    bool result = await db.fileRemove(widget.fileModel.id);
+
+    Navigator.of(context).pop();
+    widget.onDelete(widget.fileModel);
+
   }
 }
