@@ -1,10 +1,12 @@
 import 'package:auto_animated/auto_animated.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:muhasebetest/app/model/FileModel.dart';
+import 'package:muhasebetest/app/model/User.dart';
 import 'package:muhasebetest/app/screens/AddFilePage.dart';
 import 'package:muhasebetest/app/services/DBService.dart';
 import 'package:muhasebetest/app/widgets/EmptyFileWidget.dart';
@@ -242,6 +244,14 @@ class _FilesPageState extends State<FilesPage> with TickerProviderStateMixin {
   }
 
   deleteFile(FileModel file) async {
+
+    //TODO DELETE FİREBASE
+    DBService db = locator<DBService>();
+    User user = await db.getCurrentUser();
+    final StorageReference storageReference = FirebaseStorage().ref().child(
+        "/Users/${user.id}/Belgeler/${DateFormat("yyyy").format(date)}/${DateFormat("MMMM", "tr_TR").format(date)}/${file.name}");
+
+    await storageReference.delete();
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       widget

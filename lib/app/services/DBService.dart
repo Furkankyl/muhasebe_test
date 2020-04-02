@@ -88,12 +88,12 @@ class DBService {
     SharedPref sp = SharedPref(await SharedPreferences.getInstance());
     sp.setUser(user);
   }
+
   Map<DateTime, List<FileModel>> data = Map();
 
   Future<Map<DateTime, List<FileModel>>> getFiles(
       DateTime date, int day) async {
     String url = Constant.getFiles + "${(await getCurrentUser()).id}";
-
 
     Map<String, String> map = Map();
     map['date'] = DateFormat("yyyy-MM").format(date);
@@ -104,21 +104,16 @@ class DBService {
     var parsedJson = json.decode(jsonData);
 
     if (response.statusCode == 200) {
-
-
       if (parsedJson['result']) {
         data.clear();
-        parsedJson['days'].keys.forEach((key){
+        parsedJson['days'].keys.forEach((key) {
           List<FileModel> tmpFileList = [];
-          parsedJson['days'][key].forEach((fileJson){
+          parsedJson['days'][key].forEach((fileJson) {
             tmpFileList.add(FileModel.fromJson(fileJson));
           });
-          data.addAll({DateFormat("yyyy-MM").parse(key):tmpFileList});
+          data.addAll({DateFormat("yyyy-MM").parse(key): tmpFileList});
         });
-        for(int i=0;i<day;i++){
-
-
-        }
+        for (int i = 0; i < day; i++) {}
         return data;
       } else {
         CustomToast.showCard(
@@ -204,6 +199,93 @@ class DBService {
     String url = Constant.deleteFile + "$fileId";
 
     Response response = await get(url);
+    var jsonData = "${response.body}";
+    var parsedJson = json.decode(jsonData);
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      if (parsedJson['result']) {
+        return true;
+      } else {
+        CustomToast.showCard(
+            title: 'Hata',
+            body: parsedJson['error'],
+            trailing: Icon(
+              Icons.error,
+              color: Colors.red,
+            ));
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  sendApplicationForm(
+      {String username,
+      String companyName,
+      String companyPersonName,
+      String companyPersonLastName,
+      String telephone,
+      String cellPhone,
+      String email,
+      String companyTaxOffice,
+      String taxNumber,
+      String countryId,
+      String disctrictId,
+      String zoneId,
+      String quarterId,
+      String companyAddress}) async {
+    String url = Constant.accountFormUrl + "${(await getCurrentUser()).id}";
+
+    Map<String, String> map = Map();
+    map['company_name'] = companyName;
+    map['company_person_name'] = companyPersonName;
+    map['company_person_lastname'] = companyPersonLastName;
+
+    map['telephone'] = telephone;
+    map['cellphone'] = cellPhone;
+    map['email'] = email;
+
+    map['company_tax_office'] = companyTaxOffice;
+    map['tax_number'] = taxNumber;
+    map['country_id'] = countryId;
+    map['district_id'] = disctrictId;
+    map['zone_id'] = zoneId;
+    map['quarter_id'] = quarterId;
+    map['company_address'] = companyAddress;
+
+    Response response = await post(url, body: map);
+    var jsonData = "${response.body}";
+    var parsedJson = json.decode(jsonData);
+    print('${response.body}');
+
+    if (response.statusCode == 200) {
+      if (parsedJson['result']) {
+        return true;
+      } else {
+        CustomToast.showCard(
+            title: 'Hata',
+            body: parsedJson['error'],
+            trailing: Icon(
+              Icons.error,
+              color: Colors.red,
+            ));
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  changePassword(String text) async {
+    String url = Constant.accountFormUrl + "${(await getCurrentUser()).id}";
+
+    Map<String, String> map = Map();
+
+    map['password'] = text;
+
+    Response response = await post(url, body: map);
     var jsonData = "${response.body}";
     var parsedJson = json.decode(jsonData);
     print('${response.body}');

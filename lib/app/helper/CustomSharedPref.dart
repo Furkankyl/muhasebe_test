@@ -1,13 +1,13 @@
-
 import 'package:muhasebetest/app/model/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class SharedPref{
+class SharedPref {
   SharedPreferences sp;
 
 
   static String spUserId = "user_id";
+  static String spStatus = "status";
   static String spUserIdNumber = "user_image";
   static String spUserName = "user_name";
   static String spIsAuth = "is_auth";
@@ -16,14 +16,15 @@ class SharedPref{
   static String spShopId = "shop_id";
 
 
-
   SharedPref(this.sp);
 
 
-  setUser(User user){
+  setUser(User user) {
     setId(user.id);
     setName(user.userName);
     setIdNumber(user.idNumber);
+
+    setStatus(user.status);
     setAuthState(true);
   }
 
@@ -32,52 +33,60 @@ class SharedPref{
     user.id = getId();
     user.userName = getName();
     user.idNumber = getDisplayNumber();
+    user.status = getStatus();
 
-    return user.id == 0 ? null:user;
+    return user.id == 0 ? null : user;
   }
 
-  setId(int id){
+  bool getStatus() {
+    return sp.getBool(spStatus) ?? false;
+  }
+
+  setStatus(bool value) {
+    sp.setBool(spStatus, value);
+  }
+
+  setId(int id) {
     sp.setInt(spUserId, id);
   }
 
-  int getId(){
-    return sp.getInt(spUserId)??0;
-
+  int getId() {
+    return sp.getInt(spUserId) ?? 0;
   }
 
-  setName(name){
+  setName(name) {
     sp.setString(spUserName, name);
   }
 
-  String getName(){
-    return sp.getString(spUserName)??"";
+  String getName() {
+    return sp.getString(spUserName) ?? "";
   }
 
-  setIdNumber(idNumber){
+  setIdNumber(idNumber) {
     sp.setString(spUserIdNumber, idNumber);
   }
 
-  String getDisplayNumber(){
-
-    return sp.getString(spUserIdNumber)??"default image";
+  String getDisplayNumber() {
+    return sp.getString(spUserIdNumber) ?? "default image";
   }
 
-  setAuthState(authState){
+  setAuthState(authState) {
     sp.setBool(spIsAuth, authState);
   }
 
-  isAuth(){
-    return sp.getBool(spIsAuth)??false;
+  isAuth() {
+    return sp.getBool(spIsAuth) ?? false;
   }
 
 
-  signIn({name,idNumber,id}){
+  signIn({name, idNumber, id,status}) {
     setName(name);
     setIdNumber(idNumber);
     setId(id);
+    setStatus(status);
   }
 
-  signOut(){
+  signOut() {
     sp.remove(spUserName);
     sp.remove(spUserIdNumber);
     sp.remove(spUserId);

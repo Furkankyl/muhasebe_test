@@ -2,7 +2,7 @@
 
 class Constant{
 
-  static final String  apiUrl = "https://file.ddawebdizayn.com/api/v1/";
+  static final String  apiUrl = "https://muhasebe.akillierp.com/api/v1/";
 
   static final String  loginUrl = apiUrl+"post/login/";
   static final String  signUpUrl = apiUrl+"post/register/";

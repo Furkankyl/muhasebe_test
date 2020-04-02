@@ -1,17 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:muhasebetest/app/model/FileModel.dart';
 import 'package:muhasebetest/app/model/User.dart';
+import 'package:muhasebetest/app/screens/AccountFormPage.dart';
 import 'package:muhasebetest/app/screens/AddFilePage.dart';
 import 'package:muhasebetest/app/services/DBService.dart';
 import 'package:muhasebetest/locator.dart';
-
 import 'AccountPage.dart';
 import 'FilesPage.dart';
 
@@ -31,11 +26,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     fetchMap();
+
     super.initState();
   }
 
+
   fetchMap() async {
     DBService db = locator<DBService>();
+    User user = await db.getCurrentUser();
 
     await db.getFiles(DateTime.now(), 5);
     map = db.data;
@@ -50,18 +48,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         heroTag: "fab",
         onPressed: () async {
-
-          FileModel file = await Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => AddFilePage(
-
-                  )));
+          FileModel file = await Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => AddFilePage()));
           print(file);
           if (file != null) {
             await Future.delayed((Duration(milliseconds: 1000)));
-            if (map
-                .containsKey(DateTime(file.date.year, file.date.month))) {
+            if (map.containsKey(DateTime(file.date.year, file.date.month))) {
               map[DateTime(file.date.year, file.date.month)].add(file);
-
             } else {
               map.addAll({
                 file.date: [file]
@@ -138,22 +131,24 @@ class _HomePageState extends State<HomePage> {
               )),
         ],
       ),
-      body: new PageView(
-        controller: _controller,
-        physics: new NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          busy
-              ? Center(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: CircularProgressIndicator(),
+      body: SafeArea(
+        child: new PageView(
+          controller: _controller,
+          physics: new NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            busy
+                ? Center(
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
-                  ),
-                )
-              : FilesPage(map),
-          AccountPage(),
-        ],
+                  )
+                : FilesPage(map),
+            AccountPage(),
+          ],
+        ),
       ),
     );
   }

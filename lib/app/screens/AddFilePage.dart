@@ -73,7 +73,7 @@ class _AddFilePageState extends State<AddFilePage> {
 
   Future<dynamic> uploadFile(userId) async {
     final StorageReference storageReference = FirebaseStorage().ref().child(
-        "/Users/$userId/Belgeler/${DateFormat("yyyy").format(date)}/${DateFormat("MMMM", "tr_TR").format(date)}/${DateTime.now().millisecondsSinceEpoch}");
+        "/Users/$userId/Belgeler/${DateFormat("yyyy").format(date)}/${DateFormat("MMMM", "tr_TR").format(date)}/${fileNameController.text+fileExtension}");
 
     final StorageUploadTask uploadTask = storageReference.putFile(_file);
 
